@@ -47,7 +47,8 @@ public class ControladorLogin {
 			cambio = cadena.toLowerCase();
 			modelo.put("hace", cambio);
 		}
-
+          modelo.put("accion",operacion);
+		modelo.put("cadena",cadena);
 		return new ModelAndView("home", modelo);
 	}
 
