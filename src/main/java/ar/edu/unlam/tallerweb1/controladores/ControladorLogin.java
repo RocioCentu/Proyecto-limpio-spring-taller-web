@@ -26,17 +26,27 @@ public class ControladorLogin {
 
 	//Punto 6 del trabajo practico
 	@RequestMapping(path="/home/{operacion}/ {cadena}", method = RequestMethod.GET)
-	public ModelAndView convertir(@PathVariable("cadena") String cadena,@PathVariable("operacion") String operacion) {
-
+	public ModelAndView convertir(@PathVariable("operacion") String operacion ,@PathVariable("cadena") String cadena) {
 		ModelMap modelo = new ModelMap();
+		String cambio = "";
+		Integer longitud = 0;
 
-	 String cadenainvertida="";
-		for (int x=cadena.length()-1;x>=0;x--) {
-		cadenainvertida = cadenainvertida + cadena.charAt(x);
+		if(operacion.equalsIgnoreCase("invertida")){
+			StringBuilder builder=new StringBuilder(cadena);
+			String invertida = builder.reverse().toString();
+			modelo.put("hace", invertida);
+		}else if(operacion.equalsIgnoreCase("mayusculas")){
+			cambio = cadena.toUpperCase();
+			modelo.put("hace", cambio);
 		}
-		modelo.put("resultado",cadenainvertida);
-		modelo.put("original",cadena);
-		modelo.put("accion", operacion);
+		else if(operacion.equalsIgnoreCase("longitud")){
+			longitud = cadena.length();
+			modelo.put("hace", longitud);
+		}
+		else if(operacion.equalsIgnoreCase("minusculas")){
+			cambio = cadena.toLowerCase();
+			modelo.put("hace", cambio);
+		}
 
 		return new ModelAndView("home", modelo);
 	}
